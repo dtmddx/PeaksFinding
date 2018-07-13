@@ -1,4 +1,4 @@
-function [localMax, localMin]=localPeaks4(v, delta)
+function [localMax, localMin]=localPeaks(v, delta)
 % localPeaks finds local Maxima in qPCR data vector.
 
 x = (1:length(v))';
