@@ -10,28 +10,48 @@ clear
 clc
 
 %% Data reading parameters
-filename = '.\data\xiaoning.xlsx';
+% filename = '.\data\xiaoning.xlsx';
+filename = '.\data\datakongguan.xlsx';
 % filename = '.\data\DrGUO.xls';
 sheet = 1;
-xlRange = 'C2:C6004';
-
-%% read xls data
+% xlRange = 'B2:B6000';
+xlRange = 'C2:C6000';
+% xlRange = 'D2:D6000';
+% xlRange = 'E2:E6000';
 data = xlsread(filename, sheet, xlRange);
-% data = [3, 1, 555, 12, 11, 4, 5555, 4, 11, 22, 21, 22, 25, 16, 11]
+sigma = std(data(1:100))*2;
 
-% data = data + rand( length(data), 1) * 100;
+% data = data + randn(1, length(data))*20;
+
+
+%% 
+% sigma = 2;
+% [data] = SignalGen(sigma);
+% x = 1:length(data);
+
+%% smooth
+
+
+
+%% normalization
+
+%% alg1
+% [pks,locs] = findpeaks(data,x);
 % figure(1)
-% plot(data)
+% plot(x, data)
+% text(locs+.02,pks,num2str((1:numel(pks))'))
+% findpeaks(data,x,'MinPeakProminence',4,'Annotate','extents')
 
-%%
-[maxtab, mintab] = localPeaks4(data, 55);
-figure(99)
+%% alg2
+% [k,v]=findpeaksD(data,'q', 600)
+% figure(2)
+% plot(x, data)
+% hold on
+% plot(k, v, 'o')
+%% alg3
+[maxtab, mintab] = localPeaks(data, sigma*10);
+figure(3)
 plot(data)
 hold on; 
 plot(maxtab(:,1), maxtab(:,2), 'rv');
 
-%%
-% ind = maxtab(:,1)
-% indd = diff(ind)
-% figure, plot(ind)
-% figure,plot(indd)
